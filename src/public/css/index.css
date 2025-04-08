@@ -1,0 +1,56 @@
+main {
+    text-align: center;
+    padding: 50px 20px;
+}
+
+.hero {
+    background-image: url('hero.jpg');
+    background-size: cover;
+    background-position: center;
+    color: #fff;
+    padding: 100px 20px;
+}
+
+.hero h1 {
+    font-size: 3em;
+    margin-bottom: 20px;
+}
+
+.hero p {
+    font-size: 1.2em;
+    margin-bottom: 30px;
+}
+
+.button {
+    display: inline-block;
+    background-color: #e91e63;
+    color: #fff;
+    padding: 15px 30px;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.services {
+    background-color: #f0f0f0;
+    padding: 50px 20px;
+}
+
+.service-list {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.service-item {
+    width: 300px;
+    margin: 20px;
+}
+
+service-item img {
+    max-width: 100%;
+    height: auto;
+}
+
+reservation {
+    padding: 50px 20px;
+}
