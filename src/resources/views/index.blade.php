@@ -20,12 +20,12 @@
                     <p>厳選されたアロマオイルを使用し、深いリラクゼーションを提供します。</p>
                 </div>
                 <div class="service-item">
-                    <img src="service2.jpg" alt="フェイシャルエステ">
+                    <img src="{{ asset("img/E900F9F6-9953-4B21-84A6-7D61050AB525.jpeg") }}" alt="フェイシャルエステ">
                     <h3>フェイシャルエステ</h3>
                     <p>プロの技術で、お肌の悩みを解消し、輝く素肌へ導きます。</p>
                 </div>
                 <div class="service-item">
-                    <img src="service3.jpg" alt="ヘッドスパ">
+                    <img src="{{ asset("img/0B4BBCD1-F267-4D6A-8249-BF6E330356F5.jpeg") }}" alt="ヘッドスパ">
                     <h3>ヘッドスパ</h3>
                     <p>頭皮のコリをほぐし、心身ともにリフレッシュできます。</p>
                 </div>

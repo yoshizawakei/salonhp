@@ -17,6 +17,7 @@
                 @if (Auth::check())
                 <li><a href="/profile">{{ Auth::user()->name }}さん</a></li>
                 <form action="/logout" method="post">
+                @csrf
                     <button>ログアウト</button>
                 </form>
                 @else
