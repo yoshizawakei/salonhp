@@ -1,23 +1,17 @@
-<p>{{ $inputs['name'] }} 様</p>
+<p>{{ $booking->name }} 様</p>
 
-<p>この度は Private Salon Varjo のご予約をいただき、誠にありがとうございます。</p>
+<p>この度は Private Salon Varjo にご予約いただき誠にありがとうございます。</p>
 
-<p>以下の内容でご予約を承りました。</p>
+<p>
+■ 予約内容<br>
+日時：{{ $booking->date }} {{ $booking->time }}<br>
+コース：{{ $booking->course }}<br>
+施術時間：{{ $booking->duration }}分<br>
+料金：{{ number_format($booking->price) }}円<br>
+</p>
 
-<hr>
+<p>担当者より改めてご連絡いたします。</p>
 
-<p><strong>ご予約日：</strong> {{ $inputs['date'] }}</p>
-<p><strong>開始時間：</strong> {{ $inputs['time'] }}</p>
-<p><strong>コース：</strong> {{ $inputs['course'] }}</p>
-<p><strong>施術時間：</strong> {{ $inputs['duration'] }} 分</p>
-
-@if (!empty($inputs['notes']))
-    <p><strong>ご要望：</strong><br>{!! nl2br(e($inputs['notes'])) !!}</p>
-@endif
-
-<hr>
-
-<p>当日はお気をつけてお越しくださいませ。</p>
-<p>ご不明点がございましたら、このメールに返信してお問い合わせいただけます。</p>
-
-<p>Private Salon Varjo</p>
+<p>--------<br>
+Private Salon Varjo<br>
+</p>

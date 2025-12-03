@@ -46,20 +46,18 @@ Route::prefix('admin')
     ->group(function () {
 
         Route::get('/', [AdminController::class, 'dashboard'])->name('dashboard');
-
         // 予約管理
         Route::resource('bookings', AdminBookingController::class);
-
         // 顧客（カルテ）管理
         Route::resource('users', AdminUserController::class);
-
         // コース管理
         Route::resource('courses', AdminCourseController::class);
-
         // News 管理
         Route::resource('news', AdminNewsController::class);
-
         // 売上管理
         Route::get('sales', [AdminSalesController::class, 'index'])->name('sales.index');
         Route::get('sales/export', [AdminSalesController::class, 'export'])->name('sales.export');
     });
+
+Route::get('/admin/sales/export', [AdminSalesController::class, 'export'])
+    ->name('admin.sales.export');

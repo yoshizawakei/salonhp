@@ -3,43 +3,56 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ContactNotification;
 
 class ContactController extends Controller
 {
-    public function index(Request $request)
+    /**
+     * お問い合わせフォーム
+     */
+    public function index()
     {
-        // 「戻る」から来た場合、old に値を再セット
-        $old = $request->all();
-        return view('contact.index')->with($old);
+        return view("contact.index");
     }
 
+    /**
+     * 確認画面
+     */
     public function confirm(Request $request)
     {
-        $inputs = $request->validate([
-            'name' => ['required', 'string', 'max:100'],
-            'email' => ['required', 'email', 'max:255'],
-            'tel' => ['nullable', 'string', 'max:50'],
-            'type' => ['nullable', 'string', 'max:100'],
-            'message' => ['required', 'string', 'max:2000'],
+        $request->validate([
+            'name' => 'required|string|max:50',
+            'email' => 'required|email',
+            'message' => 'required|string|max:1000'
         ]);
 
-        return view('contact.confirm', ['inputs' => $inputs]);
+        $inputs = $request->all();
+
+        return view("contact.confirm", compact("inputs"));
     }
 
+    /**
+     * 送信処理
+     */
     public function send(Request $request)
     {
         $inputs = $request->all();
 
-        // 本来はここでメール送信やDB保存を行う
-        // Mail::to(config('mail.from.address'))->send(new ContactMail($inputs));
+        // メール送信（お客様へ）
+        Mail::to($inputs['email'])->send(new ContactNotification($inputs));
 
-        $request->session()->regenerateToken();
+        // 管理者にも送る場合
+        Mail::to("admin@example.com")->send(new ContactNotification($inputs));
 
         return redirect()->route('contact.thanks');
     }
 
+    /**
+     * 完了画面
+     */
     public function thanks()
     {
-        return view('contact.thanks');
+        return view("contact.thanks");
     }
 }
