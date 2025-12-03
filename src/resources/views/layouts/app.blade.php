@@ -4,72 +4,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Relaxation Salon</title>
-
-    {{-- 既存CSS --}}
-    <link rel="stylesheet" href="{{ asset('css/sanitize.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/common.css') }}">
+    <title>Private Salon Varjo</title>
 
     {{-- Bootstrap --}}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    {{-- ページ固有CSS --}}
+    {{-- 共通CSS --}}
+    <link rel="stylesheet" href="{{ asset('css/common.css') }}">
+
     @yield("css")
 </head>
 
 <body class="bg-light">
 
-    {{-- ナビ --}}
-    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm fixed-top">
-        <div class="container">
+    {{-- ヘッダー --}}
+    <header class="shadow-sm bg-white mb-4">
+        <nav class="navbar navbar-expand-lg navbar-light container py-3">
 
-            <a class="navbar-brand fw-bold" href="/">Relaxation Salon</a>
+            {{-- ロゴ --}}
+            <a class="navbar-brand d-flex align-items-center" href="/">
+                <img src="{{ asset('img/logo.png') }}" alt="Varjoロゴ" height="40" class="me-2">
+                <span class="fw-bold fs-4 text-dark">Private Salon Varjo</span>
+            </a>
 
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navMenu">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <div class="collapse navbar-collapse justify-content-end" id="navMenu">
-                <ul class="navbar-nav align-items-center">
+            <div class="collapse navbar-collapse text-center" id="navMenu">
+                <ul class="navbar-nav ms-auto">
 
-                    @if (Auth::check())
+                    <li class="nav-item"><a class="nav-link" href="/">ホーム</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/news">お知らせ</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/booking">予約</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/contact">お問い合わせ</a></li>
+
+                    @if(Auth::check())
                         <li class="nav-item">
-                            <a class="nav-link fw-semibold" href="/profile">
-                                {{ Auth::user()->name }} さん
+                            <a class="nav-link fw-bold text-primary" href="/profile">
+                                {{ Auth::user()->name }}さん
                             </a>
                         </li>
-
-                        <li class="nav-item ms-3">
-                            <form action="/logout" method="POST">
+                        <li class="nav-item">
+                            <form action="/logout" method="post" class="d-inline">
                                 @csrf
-                                <button class="btn btn-outline-dark">ログアウト</button>
+                                <button class="btn btn-sm btn-outline-secondary">ログアウト</button>
                             </form>
                         </li>
-
                     @else
-                        <li class="nav-item"><a class="nav-link" href="/">ホーム</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/booking">予約</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">サービス</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">お問い合わせ</a></li>
-                        <li class="nav-item ms-3">
-                            <a class="btn btn-dark" href="/login">ログイン</a>
-                        </li>
+                        <li class="nav-item"><a class="nav-link" href="/login">ログイン</a></li>
                     @endif
                 </ul>
             </div>
-        </div>
-    </nav>
+        </nav>
+    </header>
 
-    <div style="padding-top: 90px;">
+    {{-- メイン --}}
+    <main class="mb-5">
         @yield("content")
-    </div>
+    </main>
 
-    <footer class="bg-dark text-white text-center py-4 mt-5">
-        <p class="mb-0 small">© 2025 Relaxation Salon</p>
+    {{-- フッター --}}
+    <footer class="bg-dark text-white text-center py-4">
+        <small>&copy; {{ date('Y') }} Private Salon Varjo</small>
     </footer>
 
+    {{-- Bootstrap JS --}}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    @yield("js")
 </body>
 
 </html>
