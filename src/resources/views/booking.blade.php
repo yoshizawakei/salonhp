@@ -1,78 +1,51 @@
 @extends("layouts.app")
 
 @section("css")
-<link rel="stylesheet" href="{{ asset("css/booking.css") }}">
+<style>
+    .booking-wrapper {
+        max-width: 650px;
+        margin: 50px auto;
+        padding: 40px;
+        background: #fff;
+        border-radius: 14px;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+    }
+</style>
 @endsection
 
 @section("content")
-<div class="booking-form__content">
-    <div class="booking-form__heading">
-        <h2>サロン予約</h2>
+<div class="container">
+    <div class="booking-wrapper">
+        <h2 class="text-center fw-bold mb-4">サロン予約</h2>
+
+        <form action="#" method="POST">
+            @csrf
+
+            <div class="mb-4">
+                <label class="form-label">日付</label>
+                <input type="date" class="form-control form-control-lg" name="date">
+            </div>
+
+            <div class="mb-4">
+                <label class="form-label">時間</label>
+                <select name="time" class="form-select form-select-lg">
+                    @foreach(["10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00"] as $t)
+                    <option value="{{ $t }}">{{ $t }}</option>
+                    @endforeach
+                </select>
+            </div>
+
+            <div class="mb-4">
+                <label class="form-label">コース</label>
+                <select name="course" class="form-select form-select-lg">
+                    <option value="アロママッサージ">アロママッサージ</option>
+                    <option value="フェイシャルエステ">フェイシャルエステ</option>
+                    <option value="ヘッドスパ">ヘッドスパ</option>
+                </select>
+            </div>
+
+            <button class="btn btn-dark btn-lg w-100">予約する</button>
+        </form>
     </div>
-    <form action="#" method="POST" class="form">
-        @csrf
-        <div class="form__group">
-            <div class="form__group-title">
-                <span class="form__label--item">日付</span>
-            </div>
-            <div class="form__group-content">
-                <div class="form__input--text">
-                    <input type="date" name="date" value="{{ old("date") }}">
-                </div>
-                <div class="form__error">
-                    @error("date")
-                        {{ $message }}
-                    @enderror
-                </div>
-            </div>
-        </div>
-        <div class="form__group">
-            <div class="form__group-title">
-                <span class="form__label--item">時間</span>
-            </div>
-            <div class="form__group-content">
-                <div class="form__input--text">
-                    <select name="time">
-                        <option value="10:00">10:00</option>
-                        <option value="11:00">11:00</option>
-                        <option value="12:00">12:00</option>
-                        <option value="13:00">13:00</option>
-                        <option value="14:00">14:00</option>
-                        <option value="15:00">15:00</option>
-                        <option value="16:00">16:00</option>
-                        <option value="17:00">17:00</option>
-                        <option value="18:00">18:00</option>
-                    </select>
-                </div>
-                <div class="form__error">
-                    @error("time")
-                        {{ $message }}
-                    @enderror
-                </div>
-            </div>
-        </div>
-        <div class="form__group">
-            <div class="form__group-title">
-                <span class="form__label--item">コース</span>
-            </div>
-            <div class="form__group-content">
-                <div class="form__input--text">
-                    <select name="course">
-                        <option value="アロママッサージ">アロママッサージ</option>
-                        <option value="フェイシャルエステ">フェイシャルエステ</option>
-                        <option value="ヘッドスパ">ヘッドスパ</option>
-                    </select>
-                </div>
-                <div class="form__error">
-                    @error("course")
-                        {{ $message }}
-                    @enderror
-                </div>
-            </div>
-        </div>
-        <div class="form__button">
-            <button type="submit" class="button">予約</button>
-        </div>
-    </form>
 </div>
 @endsection

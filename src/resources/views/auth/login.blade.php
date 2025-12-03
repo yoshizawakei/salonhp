@@ -1,52 +1,42 @@
 @extends("layouts.app")
 
 @section("css")
-<link rel="stylesheet" href="{{ asset("css/login.css") }}">
+<style>
+    .auth-wrapper {
+        max-width: 450px;
+        margin: 60px auto;
+        padding: 40px;
+        background: #fff;
+        border-radius: 14px;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+    }
+</style>
 @endsection
 
 @section("content")
-<div class="login-form__content">
-    <div class="login-form__heading">
-        <h2>ログイン</h2>
-    </div>
-    <form action="/login" method="POST" class="form">
+
+<div class="auth-wrapper">
+    <h2 class="text-center fw-bold mb-4">ログイン</h2>
+
+    <form action="/login" method="POST">
         @csrf
-        <div class="form__group">
-            <div class="form__group-title">
-                <span class="form__label--item">メールアドレス</span>
-            </div>
-            <div class="form__group-content">
-                <div class="form__input--text">
-                    <input type="email" name="email" value="{{ old("email") }}">
-                </div>
-                <div class="form__error">
-                    @error("email")
-                        {{ $message }}
-                    @enderror
-                </div>
-            </div>
+
+        <div class="mb-4">
+            <label class="form-label">メールアドレス</label>
+            <input type="email" class="form-control form-control-lg" name="email">
         </div>
-        <div class="form__group">
-            <div class="form__group-title">
-                <span class="form__label--item">パスワード</span>
-            </div>
-            <div class="form__group-content">
-                <div class="form__input--text">
-                    <input type="password" name="password" >
-                </div>
-                <div class="form__error">
-                    @error("password")
-                        {{ $message }}
-                    @enderror
-                </div>
-            </div>
+
+        <div class="mb-4">
+            <label class="form-label">パスワード</label>
+            <input type="password" class="form-control form-control-lg" name="password">
         </div>
-        <div class="form__button">
-            <button type="submit" class="button">ログイン</button>
-        </div>
+
+        <button class="btn btn-dark btn-lg w-100">ログイン</button>
     </form>
-    <div class="form__link">
-        <a href="/register" class="link">新規登録の方はこちら</a>
+
+    <div class="text-center mt-4">
+        <a href="/register" class="text-dark">新規登録はこちら</a>
     </div>
 </div>
+
 @endsection
