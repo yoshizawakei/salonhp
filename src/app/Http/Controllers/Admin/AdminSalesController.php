@@ -4,31 +4,38 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Booking;
-use App\Models\Sale;
+use App\Models\Course;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class AdminSalesController extends Controller
 {
     public function index()
     {
-        // 予約売上
-        $bookingSales = Booking::where('status', 'done')
-            ->orderBy('date', 'desc')
+        // 月別売上
+        $monthlySales = Booking::selectRaw("DATE_FORMAT(date, '%Y-%m') as month, SUM(price) as total")
+            ->groupBy('month')
+            ->orderBy('month')
             ->get();
 
-        // 物販売上
-        $itemSales = Sale::orderBy('date', 'desc')->get();
+        // 月別来店数
+        $monthlyVisits = Booking::selectRaw("DATE_FORMAT(date, '%Y-%m') as month, COUNT(*) as count")
+            ->groupBy('month')
+            ->orderBy('month')
+            ->get();
 
-        $total = $bookingSales->sum('price') + $itemSales->sum('amount');
+        // コース別売上
+        $courseSales = Booking::selectRaw("course_id, SUM(price) as total")
+            ->groupBy('course_id')
+            ->with('course:id,name')
+            ->get();
 
-        return view('admin.sales.index', compact('bookingSales', 'itemSales', 'total'));
+        return view('admin.sales.index', compact('monthlySales', 'monthlyVisits', 'courseSales'));
     }
 
-    /**
-     * Excel ダウンロード
-     */
+    // Excel エクスポート
     public function export()
     {
-        return \Excel::download(new \App\Exports\SalesExport, 'sales.xlsx');
+        return (new \App\Exports\SalesExport)->download('sales.xlsx');
     }
 }

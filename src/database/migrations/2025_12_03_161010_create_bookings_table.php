@@ -31,12 +31,13 @@ class CreateBookingsTable extends Migration
             $table->text('notes')->nullable();
 
             $table->enum('status', ['pending', 'confirmed', 'done'])
-                ->default('pending');
+            ->default('pending');
 
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->nullOnDelete();
         });
+
     }
 
 

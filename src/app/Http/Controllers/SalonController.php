@@ -7,14 +7,17 @@ use App\Mail\CustomerReservationMail;
 use App\Mail\AdminReservationMail;
 use Illuminate\Support\Facades\Mail;
 use App\Models\Booking;
+use App\Models\News;
 
 
 class SalonController extends Controller
 {
     public function index()
     {
-        return view("index");
+        $news = News::latest()->take(5)->get(); // お知らせ5件表示
+        return view('index', compact('news'));
     }
+
 
     public function register()
     {
@@ -28,7 +31,7 @@ class SalonController extends Controller
 
     public function booking()
     {
-        return view("booking");
+        return view("booking.index");
     }
 
     public function logout(Request $request)
@@ -37,23 +40,24 @@ class SalonController extends Controller
         return redirect("/");
     }
 
-    public function store(Request $request)
+    public function bookingStore(Request $request)
     {
-        $booking = Booking::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'date' => $request->date,
-            'time' => $request->time,
-            'course' => $request->course,
-            'duration' => $request->duration,
-            'price' => $request->price,
-            'status' => 'pending',
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email',
+            'date' => 'required|date',
+            'time' => 'required',
+            'course' => 'required',
+            'duration' => 'required|integer',
+            'price' => 'required|integer',
         ]);
 
-        // お客様へ
+        $booking = Booking::create($request->all());
+
+        // お客様へメール
         Mail::to($booking->email)->send(new CustomerReservationMail($booking));
 
-        // 管理者へ
+        // 管理者へメール
         Mail::to(env('ADMIN_MAIL'))->send(new AdminReservationMail($booking));
 
         return redirect('/booking/thanks');

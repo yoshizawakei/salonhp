@@ -1,18 +1,24 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+
 use App\Http\Controllers\SalonController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\NewsController;
 
-// Admin
+// Admin Controllers
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AdminBookingController;
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\AdminCourseController;
 use App\Http\Controllers\Admin\AdminNewsController;
 use App\Http\Controllers\Admin\AdminSalesController;
+use App\Http\Controllers\Admin\Auth\AdminLoginController;
+
+// ----------------------
+// Public Routes
+// ----------------------
 
 Route::get('/', [SalonController::class, 'index'])->name('home');
 
@@ -37,27 +43,35 @@ Route::get('/login', [SalonController::class, 'login'])->name('login');
 Route::get('/register', [SalonController::class, 'register'])->name('register');
 Route::post('/logout', [SalonController::class, 'logout'])->name('logout');
 
-// ----------------
-// Admin
-// ----------------
+// ----------------------
+// Admin Routes
+// ----------------------
+
 Route::prefix('admin')
     ->middleware(['auth', 'admin'])
     ->name('admin.')
     ->group(function () {
 
         Route::get('/', [AdminController::class, 'dashboard'])->name('dashboard');
+
         // 予約管理
         Route::resource('bookings', AdminBookingController::class);
-        // 顧客（カルテ）管理
+
+        // 顧客管理（カルテ）
         Route::resource('users', AdminUserController::class);
+
         // コース管理
         Route::resource('courses', AdminCourseController::class);
-        // News 管理
+
+        // NEWS 管理
         Route::resource('news', AdminNewsController::class);
+
         // 売上管理
         Route::get('sales', [AdminSalesController::class, 'index'])->name('sales.index');
         Route::get('sales/export', [AdminSalesController::class, 'export'])->name('sales.export');
     });
 
-Route::get('/admin/sales/export', [AdminSalesController::class, 'export'])
-    ->name('admin.sales.export');
+// 管理者ログイン
+Route::get('/admin/login', [AdminLoginController::class, 'showLogin'])->name('admin.login');
+Route::post('/admin/login', [AdminLoginController::class, 'login'])->name('admin.login.submit');
+Route::post('/admin/logout', [AdminLoginController::class, 'logout'])->name('admin.logout');

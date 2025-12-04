@@ -1,86 +1,107 @@
 @extends("layouts.app")
 
+@section("css")
+<link rel="stylesheet" href="{{ asset('css/booking.css') }}">
+@endsection
+
 @section("content")
-<div class="container">
+<div class="container py-5">
+    <h2 class="text-center mb-4 fw-bold">ご予約フォーム</h2>
 
-    <h2 class="text-center fw-bold mb-4">予約フォーム</h2>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
 
-    <form action="{{ route('booking.confirm') }}" method="POST" class="mx-auto" style="max-width:700px;">
-        @csrf
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    入力内容に誤りがあります。ご確認ください。
+                </div>
+            @endif
 
-        {{-- 名前 --}}
-        <div class="mb-3">
-            <label class="form-label">お名前 *</label>
-            <input type="text" class="form-control" name="name" required value="{{ old('name') }}">
+            <form action="/booking" method="POST" class="card shadow-sm p-4 bg-white rounded">
+                @csrf
+
+                {{-- お名前 --}}
+                <div class="mb-3">
+                    <label class="form-label fw-bold">お名前</label>
+                    <input type="text" name="name" value="{{ old('name') }}" class="form-control">
+                    @error('name') <small class="text-danger">{{ $message }}</small> @enderror
+                </div>
+
+                {{-- メール --}}
+                <div class="mb-3">
+                    <label class="form-label fw-bold">メールアドレス</label>
+                    <input type="email" name="email" value="{{ old('email') }}" class="form-control">
+                    @error('email') <small class="text-danger">{{ $message }}</small> @enderror
+                </div>
+
+                {{-- 日付 --}}
+                <div class="mb-3">
+                    <label class="form-label fw-bold">日付</label>
+                    <input type="date" name="date" value="{{ old('date') }}" class="form-control">
+                    @error('date') <small class="text-danger">{{ $message }}</small> @enderror
+                </div>
+
+                {{-- 時間 --}}
+                <div class="mb-3">
+                    <label class="form-label fw-bold">時間</label>
+                    <select name="time" class="form-select">
+                        <option selected disabled>選択してください</option>
+                        @foreach (['10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00','18:00'] as $t)
+                            <option value="{{ $t }}" {{ old('time')==$t ? 'selected':'' }}>{{ $t }}</option>
+                        @endforeach
+                    </select>
+                    @error('time') <small class="text-danger">{{ $message }}</small> @enderror
+                </div>
+
+                {{-- コース --}}
+                <div class="mb-3">
+                    <label class="form-label fw-bold">コース内容</label>
+                    <select name="course" class="form-select" id="courseSelect">
+                        <option selected disabled>選択してください</option>
+                        <option value="aroma" data-duration="90" data-price="12000"
+                            {{ old('course')=='aroma' ? 'selected':'' }}>
+                            アロマボディトリートメント（90分 ¥12,000）
+                        </option>
+                        <option value="facial" data-duration="60" data-price="9000"
+                            {{ old('course')=='facial' ? 'selected':'' }}>
+                            フェイシャルエステ（60分 ¥9,000）
+                        </option>
+                        <option value="headspa" data-duration="45" data-price="6000"
+                            {{ old('course')=='headspa' ? 'selected':'' }}>
+                            ドライヘッドスパ（45分 ¥6,000）
+                        </option>
+                    </select>
+                    @error('course') <small class="text-danger">{{ $message }}</small> @enderror
+                </div>
+
+                {{-- 所要時間 & 料金（自動入力） --}}
+                <div class="mb-3">
+                    <label class="form-label fw-bold">施術時間</label>
+                    <input type="text" name="duration" id="duration" readonly class="form-control bg-light">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">料金</label>
+                    <input type="text" name="price" id="price" readonly class="form-control bg-light">
+                </div>
+
+                <button type="submit" class="btn btn-dark w-100 rounded-pill mt-3 py-2 fw-bold">
+                    予約を確定する
+                </button>
+            </form>
         </div>
-
-        {{-- メール --}}
-        <div class="mb-3">
-            <label class="form-label">メールアドレス *</label>
-            <input type="email" class="form-control" name="email" required value="{{ old('email') }}">
-        </div>
-
-        {{-- 電話 --}}
-        <div class="mb-3">
-            <label class="form-label">電話番号（任意）</label>
-            <input type="text" class="form-control" name="tel" value="{{ old('tel') }}">
-        </div>
-
-        {{-- 日付 --}}
-        <div class="mb-3">
-            <label class="form-label">予約日 *</label>
-            <input type="date" class="form-control" name="date" required value="{{ old('date') }}">
-        </div>
-
-        {{-- 時間 --}}
-        <div class="mb-3">
-            <label class="form-label">時間 *</label>
-            <select name="time" class="form-select" required>
-                <option value="">選択してください</option>
-                @foreach (['10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00'] as $time)
-                    <option value="{{ $time }}" @selected(old('time') == $time)>
-                        {{ $time }}
-                    </option>
-                @endforeach
-            </select>
-        </div>
-
-        {{-- コース --}}
-        <div class="mb-3">
-            <label class="form-label">コース *</label>
-            <select name="course_id" class="form-select" required>
-                <option value="">選択してください</option>
-                @foreach ($courses as $course)
-                    <option value="{{ $course->id }}">
-                        {{ $course->name }}（{{ $course->duration }}分）
-                    </option>
-                @endforeach
-            </select>
-        </div>
-
-        {{-- オプション --}}
-        @if($options->count())
-            <div class="mb-3">
-                <label class="form-label">追加オプション</label><br>
-                @foreach ($options as $op)
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="options[]" value="{{ $op->id }}">
-                        <label>{{ $op->name }}（+{{ number_format($op->price) }}円）</label>
-                    </div>
-                @endforeach
-            </div>
-        @endif
-
-        {{-- メモ --}}
-        <div class="mb-3">
-            <label class="form-label">ご要望・メッセージ（任意）</label>
-            <textarea class="form-control" name="notes" rows="4">{{ old('notes') }}</textarea>
-        </div>
-
-        <div class="text-center">
-            <button class="btn btn-dark px-5 py-2">確認画面へ</button>
-        </div>
-
-    </form>
+    </div>
 </div>
+
+<script>
+    const courseSelect = document.getElementById('courseSelect');
+    const durationInput = document.getElementById('duration');
+    const priceInput = document.getElementById('price');
+
+    courseSelect.addEventListener('change', function() {
+        durationInput.value = this.options[this.selectedIndex].dataset.duration;
+        priceInput.value = this.options[this.selectedIndex].dataset.price;
+    });
+</script>
+
 @endsection

@@ -1,0 +1,61 @@
+/* 背景：黒に近い濃いグレー */
+.admin-login-bg {
+    background: #0f0f0f;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* ロゴ */
+.admin-logo {
+    width: 120px;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+/* ログインカード */
+.login-card {
+    width: 380px;
+    padding: 40px;
+    border-radius: 12px;
+    background: #1a1a1a;
+    border: 1px solid #333;
+}
+
+/* タイトル */
+.login-title {
+    color: #d4af37;
+    /* 上品なゴールド */
+    font-weight: 300;
+    letter-spacing: 2px;
+}
+
+/* 入力欄 */
+.login-input {
+    background: #222;
+    border: 1px solid #444;
+    color: #fff;
+}
+
+.login-input:focus {
+    background: #2a2a2a;
+    color: #fff;
+    border-color: #d4af37;
+    box-shadow: 0 0 0 0.2rem rgba(212, 175, 55, 0.25);
+}
+
+/* ボタン：ゴールド */
+.btn-gold {
+    background: linear-gradient(90deg, #c29d32, #e5c257);
+    color: #000;
+    font-weight: 600;
+    border-radius: 8px;
+    border: none;
+    transition: 0.3s;
+}
+
+.btn-gold:hover {
+    background: linear-gradient(90deg, #e5c257, #f1d98a);
+    color: #000;
+}
