@@ -27,7 +27,7 @@
                     <img src="{{ asset('img/119675B9-0960-4193-ADC9-CFD191C778A1.jpeg') }}" class="service-img"
                         alt="アロママッサージ">
                     <div class="p-4">
-                        <h3 class="fw-bold">アロマボディトリートメント</h3>
+                        <h3 class="fw-bold">ボディトリートメント</h3>
                         <p>植物由来のアロマオイルを贅沢に使用し、深いリラクゼーションへ導きます。</p>
                         <a href="/booking" class="btn btn-outline-dark rounded-pill">予約する</a>
                     </div>

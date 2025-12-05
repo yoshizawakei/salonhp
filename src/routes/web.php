@@ -16,10 +16,13 @@ use App\Http\Controllers\Admin\AdminNewsController;
 use App\Http\Controllers\Admin\AdminSalesController;
 use App\Http\Controllers\Admin\Auth\AdminLoginController;
 
+use App\Http\Controllers\SitemapController;
+
 // ----------------------
 // Public Routes
 // ----------------------
 
+// TOP
 Route::get('/', [SalonController::class, 'index'])->name('home');
 
 // News
@@ -38,7 +41,7 @@ Route::post('/contact/confirm', [ContactController::class, 'confirm'])->name('co
 Route::post('/contact/send', [ContactController::class, 'send'])->name('contact.send');
 Route::get('/contact/thanks', [ContactController::class, 'thanks'])->name('contact.thanks');
 
-// Auth
+// User Auth（必要に応じて中身は AuthController などへ）
 Route::get('/login', [SalonController::class, 'login'])->name('login');
 Route::get('/register', [SalonController::class, 'register'])->name('register');
 Route::post('/logout', [SalonController::class, 'logout'])->name('logout');
@@ -47,8 +50,14 @@ Route::post('/logout', [SalonController::class, 'logout'])->name('logout');
 // Admin Routes
 // ----------------------
 
+// 管理者ログイン
+Route::get('/admin/login', [AdminLoginController::class, 'showLogin'])->name('admin.login');
+Route::post('/admin/login', [AdminLoginController::class, 'login'])->name('admin.login.submit');
+Route::post('/admin/logout', [AdminLoginController::class, 'logout'])->name('admin.logout');
+
+// 管理画面本体（admin ガードで保護）
 Route::prefix('admin')
-    ->middleware(['auth', 'admin'])
+    ->middleware('auth:admin')
     ->name('admin.')
     ->group(function () {
 
@@ -71,7 +80,4 @@ Route::prefix('admin')
         Route::get('sales/export', [AdminSalesController::class, 'export'])->name('sales.export');
     });
 
-// 管理者ログイン
-Route::get('/admin/login', [AdminLoginController::class, 'showLogin'])->name('admin.login');
-Route::post('/admin/login', [AdminLoginController::class, 'login'])->name('admin.login.submit');
-Route::post('/admin/logout', [AdminLoginController::class, 'logout'])->name('admin.logout');
+Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');

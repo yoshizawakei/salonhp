@@ -43,13 +43,23 @@ class AdminBookingController extends Controller
     {
         $booking = Booking::findOrFail($id);
 
-        $booking->update([
-            'status' => $request->status,
-            'notes' => $request->notes,
-            'price' => $request->price,
-        ]);
+        // ステータスは必ず更新
+        $booking->status = $request->status;
 
-        return redirect('/admin/bookings')->with('success', '予約を更新しました');
+        // メモはフォームにある画面（編集画面など）だけで使う想定
+        if ($request->has('notes')) {
+            $booking->notes = $request->notes;
+        }
+
+        // 料金もフォームがある画面だけで変更する
+        if ($request->has('price') && $request->price !== null && $request->price !== '') {
+            $booking->price = (int) $request->price;
+        }
+
+        $booking->save();
+
+        return redirect()->route('admin.bookings.index')
+            ->with('success', '予約を更新しました');
     }
 
     public function destroy($id)

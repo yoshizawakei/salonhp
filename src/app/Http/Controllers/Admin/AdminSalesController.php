@@ -4,9 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Booking;
-use App\Models\Course;
-use Carbon\Carbon;
-use Illuminate\Http\Request;
 
 class AdminSalesController extends Controller
 {
@@ -24,8 +21,9 @@ class AdminSalesController extends Controller
             ->orderBy('month')
             ->get();
 
-        // コース別売上
+        // コース別売上（course_id 正規化版）
         $courseSales = Booking::selectRaw("course_id, SUM(price) as total")
+            ->whereNotNull('course_id')
             ->groupBy('course_id')
             ->with('course:id,name')
             ->get();

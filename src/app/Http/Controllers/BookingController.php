@@ -7,32 +7,30 @@ use App\Models\Course;
 use App\Models\Booking;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\BookingNotification;
-use Carbon\Carbon;
 
 class BookingController extends Controller
 {
     /**
-     * 予約フォーム：表示
+     * 予約フォーム
      */
     public function index()
     {
-        // メインコース
         $courses = Course::where('is_option', false)
             ->where('is_active', true)
-            ->orderBy('category')
+            ->orderBy('sort_order')
             ->orderBy('duration')
             ->get();
 
-        // オプション
         $options = Course::where('is_option', true)
             ->where('is_active', true)
+            ->orderBy('sort_order')
             ->get();
 
         return view("booking.index", compact("courses", "options"));
     }
 
     /**
-     * 予約内容：確認画面
+     * 予約内容確認画面
      */
     public function confirm(Request $request)
     {
@@ -49,7 +47,6 @@ class BookingController extends Controller
 
         $inputs = $request->all();
 
-        // メインコース
         $course = Course::findOrFail($inputs['course_id']);
 
         // オプション
@@ -57,13 +54,15 @@ class BookingController extends Controller
         $option_duration = 0;
 
         if (!empty($inputs['options'])) {
-            $options = Course::whereIn('id', $inputs['options'])->get();
-            $option_price = $options->sum('price');
-            $option_duration = $options->sum('duration');
+            $optionCourses = Course::whereIn('id', $inputs['options'])->get();
+            $option_price = $optionCourses->sum('price');
+            $option_duration = $optionCourses->sum('duration');
         }
 
-        // 合計計算
-        $inputs['course_name'] = $course->name;
+        // コース名（テーブルの "course" に保存される名前）
+        $inputs['course'] = $course->name;
+
+        // 合計
         $inputs['duration'] = $course->duration + $option_duration;
         $inputs['price'] = $course->price + $option_price;
 
@@ -71,53 +70,52 @@ class BookingController extends Controller
     }
 
     /**
-     * 予約の確定処理（DB保存＋メール送信）
+     * 予約確定
      */
     public function send(Request $request)
     {
         $inputs = $request->all();
 
-        // メインコース
         $course = Course::findOrFail($inputs['course_id']);
 
-        // オプション計算
+        // オプション
         $option_price = 0;
         $option_duration = 0;
 
         if (!empty($inputs['options'])) {
-            $options = Course::whereIn('id', $inputs['options'])->get();
-            $option_price = $options->sum('price');
-            $option_duration = $options->sum('duration');
+            $optionCourses = Course::whereIn('id', $inputs['options'])->get();
+            $option_price = $optionCourses->sum('price');
+            $option_duration = $optionCourses->sum('duration');
         }
 
+        // 合計
         $total_price = $course->price + $option_price;
         $total_duration = $course->duration + $option_duration;
 
-        // DB保存
+        // DB 保存
         $booking = Booking::create([
             'user_id' => auth()->id(),
+            'course_id' => $course->id,
             'name' => $inputs['name'],
             'email' => $inputs['email'],
-            'tel' => $inputs['tel'],
+            'tel' => $inputs['tel'] ?? null,
             'date' => $inputs['date'],
             'time' => $inputs['time'],
-            'course' => $course->name,
+            'course' => $course->name, // ← テーブルと同期
             'duration' => $total_duration,
             'price' => $total_price,
             'notes' => $inputs['notes'] ?? null,
         ]);
 
-        // メール送信（お客様）
-        Mail::to($inputs['email'])->send(new BookingNotification($booking));
-
-        // メール送信（管理者にも通知したい場合）
-        Mail::to("your_admin_mail@example.com")->send(new BookingNotification($booking));
+        // メール送信
+        Mail::to($booking->email)->send(new BookingNotification($booking));
+        Mail::to(config('mail.from.address'))->send(new BookingNotification($booking));
 
         return redirect()->route('booking.thanks');
     }
 
     /**
-     * 完了ページ
+     * 完了画面
      */
     public function thanks()
     {

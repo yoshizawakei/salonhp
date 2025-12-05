@@ -27,6 +27,10 @@
             text-decoration: none;
         }
 
+        .sidebar form {
+            padding-left: 12px;
+        }
+
         .sidebar a:hover {
             background: rgba(255, 255, 255, 0.1);
         }
@@ -57,9 +61,9 @@
         <a href="{{ route('admin.news.index') }}">お知らせ管理</a>
         <a href="{{ route('admin.sales.index') }}">売上管理</a>
 
-        <form action="/logout" method="post" class="mt-4">
+        <form action="{{ route('admin.logout') }}" method="POST" class="mt-4 text-left">
             @csrf
-            <button class="btn btn-sm btn-light ms-3">ログアウト</button>
+            <button class="btn btn-outline-light">ログアウト</button>
         </form>
     </div>
 

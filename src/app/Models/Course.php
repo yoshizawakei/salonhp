@@ -13,7 +13,7 @@ class Course extends Model
         'price',
         'is_option',
         'is_active',
-        'description'
+        'description',
+        'sort_order',
     ];
 }
-

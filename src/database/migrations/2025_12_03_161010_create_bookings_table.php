@@ -6,16 +6,13 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateBookingsTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::create('bookings', function (Blueprint $table) {
             $table->id();
+
             $table->unsignedBigInteger('user_id')->nullable();
+            $table->unsignedBigInteger('course_id')->nullable();
 
             $table->string('name');
             $table->string('email');
@@ -24,6 +21,7 @@ class CreateBookingsTable extends Migration
             $table->date('date');
             $table->string('time');
 
+            // 表示用コース名（Course 名称コピー）
             $table->string('course');
             $table->integer('duration');
             $table->integer('price');
@@ -31,21 +29,20 @@ class CreateBookingsTable extends Migration
             $table->text('notes')->nullable();
 
             $table->enum('status', ['pending', 'confirmed', 'done'])
-            ->default('pending');
+                ->default('pending');
 
             $table->timestamps();
 
-            $table->foreign('user_id')->references('id')->on('users')->nullOnDelete();
-        });
+            $table->foreign('user_id')
+                ->references('id')->on('users')
+                ->nullOnDelete();
 
+            $table->foreign('course_id')
+                ->references('id')->on('courses')
+                ->nullOnDelete();
+        });
     }
 
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('bookings');
