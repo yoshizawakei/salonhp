@@ -1,24 +1,20 @@
-FROM php:8.1-fpm
+FROM php:8.1-fpm-alpine
 
 # System dependencies
-RUN apt update && apt install -y \
+RUN apk update && apk add --no-cache \
     git \
     curl \
     unzip \
-    default-mysql-client \
     libpng-dev \
-    libjpeg-dev \
-    libfreetype6-dev \
+    libjpeg-turbo-dev \
+    freetype-dev \
     libzip-dev \
     zip \
-    && docker-php-ext-configure gd \
-    --with-freetype \
-    --with-jpeg \
-    && docker-php-ext-install gd pdo_mysql zip
+    mariadb-client \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install -j$(nproc) gd pdo_mysql zip
 
-# Composer install
-RUN curl -sS https://getcomposer.org/installer | php \
-    && mv composer.phar /usr/local/bin/composer \
-    && chmod +x /usr/local/bin/composer
+# Composer install (パスを /usr/bin/composer に修正)
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 WORKDIR /var/www
