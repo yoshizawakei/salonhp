@@ -22,8 +22,11 @@
 
         <div class="d-flex justify-content-between mt-4">
 
-            {{-- 戻る --}}
+            {{-- 戻る：入力値を保持 --}}
             <form action="{{ route('contact.index') }}" method="GET">
+                @foreach($inputs as $key => $value)
+                    <input type="hidden" name="{{ $key }}" value="{{ $value }}">
+                @endforeach
                 <button class="btn btn-outline-secondary">修正する</button>
             </form>
 

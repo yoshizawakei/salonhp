@@ -3,10 +3,8 @@
 namespace App\Exports;
 
 use App\Models\Booking;
-use App\Models\Sale;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
-use Illuminate\Support\Collection;
 
 class SalesExport implements FromCollection, WithHeadings
 {
@@ -16,7 +14,7 @@ class SalesExport implements FromCollection, WithHeadings
     public function collection()
     {
         // 来店済み予約の売上
-        $bookingSales = Booking::where('status', 'done')
+        return Booking::where('status', 'done')
             ->orderBy('date', 'desc')
             ->get()
             ->map(function ($b) {
@@ -30,24 +28,6 @@ class SalesExport implements FromCollection, WithHeadings
                     'type' => '施術',
                 ];
             });
-
-        // 物販売上
-        $itemSales = Sale::orderBy('date', 'desc')
-            ->get()
-            ->map(function ($s) {
-                return [
-                    'date' => $s->date,
-                    'time' => '',
-                    'name' => $s->customer_name ?? '',
-                    'item' => $s->item,
-                    'duration' => '',
-                    'amount' => $s->amount,
-                    'type' => '物販',
-                ];
-            });
-
-        // 予約 + 物販 を統合
-        return (new Collection())->concat($bookingSales)->concat($itemSales);
     }
 
     /**

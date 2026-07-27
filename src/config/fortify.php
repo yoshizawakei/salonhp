@@ -146,15 +146,15 @@ return [
 
     'features' => [
         Features::registration(),
-        Features::resetPasswords(),
+        // 以下はUI（画面・リンク）が未実装のため無効化。実装する際はここを有効化すること。
+        // Features::resetPasswords(),
         // Features::emailVerification(),
-        Features::updateProfileInformation(),
-        Features::updatePasswords(),
-        Features::twoFactorAuthentication([
-            'confirm' => true,
-            'confirmPassword' => true,
-            // 'window' => 0,
-        ]),
+        // Features::updateProfileInformation(),
+        // Features::updatePasswords(),
+        // Features::twoFactorAuthentication([
+        //     'confirm' => true,
+        //     'confirmPassword' => true,
+        // ]),
     ],
 
 ];

@@ -1,11 +1,11 @@
-@extends('layouts.admin')
+@extends('admin.layouts.app')
 
 @section('content')
     <h2 class="fw-bold mb-4">予約編集</h2>
 
     <div class="card shadow-sm p-4">
 
-        <form action="/admin/bookings/{{ $booking->id }}" method="POST">
+        <form action="{{ route('admin.bookings.update', $booking->id) }}" method="POST">
             @csrf
             @method('PUT')
 
@@ -32,7 +32,7 @@
             </div>
 
             <button class="btn btn-dark px-4">更新する</button>
-            <a href="/admin/bookings" class="btn btn-outline-dark ms-2">戻る</a>
+            <a href="{{ route('admin.bookings.index') }}" class="btn btn-outline-dark ms-2">戻る</a>
         </form>
 
     </div>

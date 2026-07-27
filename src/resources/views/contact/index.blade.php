@@ -10,17 +10,17 @@
 
             <div class="mb-3">
                 <label class="form-label">お名前 *</label>
-                <input type="text" class="form-control" name="name" required value="{{ old('name') }}">
+                <input type="text" class="form-control" name="name" required value="{{ old('name', request('name')) }}">
             </div>
 
             <div class="mb-3">
                 <label class="form-label">メールアドレス *</label>
-                <input type="email" class="form-control" name="email" required value="{{ old('email') }}">
+                <input type="email" class="form-control" name="email" required value="{{ old('email', request('email')) }}">
             </div>
 
             <div class="mb-3">
                 <label class="form-label">お問い合わせ内容 *</label>
-                <textarea name="message" class="form-control" rows="5" required>{{ old('message') }}</textarea>
+                <textarea name="message" class="form-control" rows="5" required>{{ old('message', request('message')) }}</textarea>
             </div>
 
             <div class="text-center">

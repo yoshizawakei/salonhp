@@ -10,6 +10,7 @@
             <tr>
                 <th>並び順</th>
                 <th>コース名</th>
+                <th>区分</th>
                 <th>時間</th>
                 <th>料金</th>
                 <th>公開</th>
@@ -22,6 +23,13 @@
                 <tr>
                     <td>{{ $c->sort_order }}</td>
                     <td>{{ $c->name }}</td>
+                    <td>
+                        @if($c->is_option)
+                            <span class="badge bg-info text-dark">オプション</span>
+                        @else
+                            <span class="badge bg-dark">コース</span>
+                        @endif
+                    </td>
                     <td>{{ $c->duration }} 分</td>
                     <td>¥{{ number_format($c->price) }}</td>
                     <td>

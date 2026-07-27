@@ -41,10 +41,7 @@ Route::post('/contact/confirm', [ContactController::class, 'confirm'])->name('co
 Route::post('/contact/send', [ContactController::class, 'send'])->name('contact.send');
 Route::get('/contact/thanks', [ContactController::class, 'thanks'])->name('contact.thanks');
 
-// User Auth（必要に応じて中身は AuthController などへ）
-Route::get('/login', [SalonController::class, 'login'])->name('login');
-Route::get('/register', [SalonController::class, 'register'])->name('register');
-Route::post('/logout', [SalonController::class, 'logout'])->name('logout');
+// User Auth（ログイン・会員登録・ログアウトは Laravel Fortify が自動登録するルートを使用）
 
 // ----------------------
 // Admin Routes
@@ -52,7 +49,7 @@ Route::post('/logout', [SalonController::class, 'logout'])->name('logout');
 
 // 管理者ログイン
 Route::get('/admin/login', [AdminLoginController::class, 'showLogin'])->name('admin.login');
-Route::post('/admin/login', [AdminLoginController::class, 'login'])->name('admin.login.submit');
+Route::post('/admin/login', [AdminLoginController::class, 'login'])->name('admin.login.submit')->middleware('throttle:5,1');
 Route::post('/admin/logout', [AdminLoginController::class, 'logout'])->name('admin.logout');
 
 // 管理画面本体（admin ガードで保護）
@@ -63,17 +60,17 @@ Route::prefix('admin')
 
         Route::get('/', [AdminController::class, 'dashboard'])->name('dashboard');
 
-        // 予約管理
-        Route::resource('bookings', AdminBookingController::class);
+        // 予約管理（新規作成・登録は顧客の予約フォームからのみ行うため除外）
+        Route::resource('bookings', AdminBookingController::class)->except(['create', 'store']);
 
-        // 顧客管理（カルテ）
-        Route::resource('users', AdminUserController::class);
+        // 顧客管理（カルテ）（顧客の新規作成・削除は会員登録/退会フローで行わないため除外）
+        Route::resource('users', AdminUserController::class)->except(['create', 'store', 'destroy']);
 
-        // コース管理
-        Route::resource('courses', AdminCourseController::class);
+        // コース管理（詳細ページは一覧・編集で十分なため除外）
+        Route::resource('courses', AdminCourseController::class)->except(['show']);
 
-        // NEWS 管理
-        Route::resource('news', AdminNewsController::class);
+        // NEWS 管理（詳細ページは一覧・編集で十分なため除外）
+        Route::resource('news', AdminNewsController::class)->except(['show']);
 
         // 売上管理
         Route::get('sales', [AdminSalesController::class, 'index'])->name('sales.index');

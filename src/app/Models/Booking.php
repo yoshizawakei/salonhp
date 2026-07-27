@@ -15,6 +15,7 @@ class Booking extends Model
         'date',
         'time',
         'course',   // 表示用に文字列も保持
+        'options',  // 選択した追加オプション名（表示用）
         'duration',
         'price',
         'notes',

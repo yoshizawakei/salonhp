@@ -32,6 +32,14 @@
         </div>
 
         <div class="mb-3">
+            <label class="form-label fw-bold">区分</label>
+            <select name="is_option" class="form-select">
+                <option value="0">コース（メインメニュー）</option>
+                <option value="1">オプション（追加メニュー）</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
             <label class="form-label fw-bold">公開状態</label>
             <select name="is_active" class="form-select">
                 <option value="1">公開</option>

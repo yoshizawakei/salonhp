@@ -26,4 +26,6 @@
             @endforeach
         </tbody>
     </table>
+
+    {{ $news->links() }}
 @endsection

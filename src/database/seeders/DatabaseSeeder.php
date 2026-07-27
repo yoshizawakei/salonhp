@@ -67,5 +67,28 @@ class DatabaseSeeder extends Seeder
             'is_active' => true,
             'description' => '頭皮・目元の疲れを集中的にケアし、深いリラックスと快眠をサポートします。',
         ]);
+
+        // --------------------------
+        // 追加オプション
+        // --------------------------
+        Course::create([
+            'name' => 'ホットストーン追加',
+            'category' => 'option',
+            'duration' => 15,
+            'price' => 2000,
+            'is_option' => true,
+            'is_active' => true,
+            'description' => '温めた石で筋肉の緊張をやわらげ、より深いリラクゼーションへ。',
+        ]);
+
+        Course::create([
+            'name' => 'アロマオイル変更（プレミアム）',
+            'category' => 'option',
+            'duration' => 0,
+            'price' => 1000,
+            'is_option' => true,
+            'is_active' => true,
+            'description' => '厳選した上質なアロマオイルへの変更。',
+        ]);
     }
 }

@@ -77,6 +77,26 @@
                         @error('course_id') <small class="text-danger">{{ $message }}</small> @enderror
                     </div>
 
+                    @if ($options->count())
+                        {{-- 追加オプション --}}
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">追加オプション（複数選択可）</label>
+                            @php $selectedOptions = old('options', request('options', [])); @endphp
+                            @foreach ($options as $option)
+                                <div class="form-check">
+                                    <input type="checkbox" name="options[]" value="{{ $option->id }}"
+                                        class="form-check-input option-checkbox"
+                                        data-duration="{{ $option->duration }}" data-price="{{ $option->price }}"
+                                        id="option{{ $option->id }}"
+                                        {{ in_array($option->id, $selectedOptions) ? 'checked' : '' }}>
+                                    <label class="form-check-label" for="option{{ $option->id }}">
+                                        {{ $option->name }}（+{{ $option->duration }}分 / +¥{{ number_format($option->price) }}）
+                                    </label>
+                                </div>
+                            @endforeach
+                        </div>
+                    @endif
+
                     {{-- 表示用（◯分 / ◯円） --}}
                     <div class="mb-3">
                         <label class="form-label fw-bold">施術時間</label>
@@ -113,25 +133,36 @@
         const courseSelect = document.getElementById('courseSelect');
         const durationInput = document.getElementById('duration');
         const priceInput = document.getElementById('price');
+        const optionCheckboxes = document.querySelectorAll('.option-checkbox');
 
         const durationDisplay = document.getElementById('duration_display');
         const priceDisplay = document.getElementById('price_display');
 
         function updateCourseValues() {
             const opt = courseSelect.options[courseSelect.selectedIndex];
-            const duration = opt.dataset.duration || '';
-            const price = opt.dataset.price || '';
+            let duration = Number(opt.dataset.duration) || 0;
+            let price = Number(opt.dataset.price) || 0;
 
-            durationInput.value = duration;
-            priceInput.value = price;
+            optionCheckboxes.forEach(function (checkbox) {
+                if (checkbox.checked) {
+                    duration += Number(checkbox.dataset.duration) || 0;
+                    price += Number(checkbox.dataset.price) || 0;
+                }
+            });
+
+            durationInput.value = duration || '';
+            priceInput.value = price || '';
 
             durationDisplay.value = duration ? duration + '分' : '';
             priceDisplay.value = price ? price + '円' : '';
         }
 
-        // change 時
         if (courseSelect) {
             courseSelect.addEventListener('change', updateCourseValues);
+
+            optionCheckboxes.forEach(function (checkbox) {
+                checkbox.addEventListener('change', updateCourseValues);
+            });
 
             // old() に値がある場合、ロード時に反映
             if (courseSelect.value) {

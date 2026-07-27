@@ -88,9 +88,9 @@
 
                     @if(Auth::check())
                         <li class="nav-item">
-                            <a class="nav-link fw-bold text-primary" href="/profile">
+                            <span class="nav-link fw-bold text-primary">
                                 {{ Auth::user()->name }}さん
-                            </a>
+                            </span>
                         </li>
                         <li class="nav-item">
                             <form action="/logout" method="post" class="d-inline">

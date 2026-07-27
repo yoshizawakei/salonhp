@@ -34,7 +34,12 @@
 
             <tr>
                 <th class="bg-light">コース</th>
-                <td>{{ $inputs['course_name'] }}</td>
+                <td>{{ $inputs['course'] }}</td>
+            </tr>
+
+            <tr>
+                <th class="bg-light">追加オプション</th>
+                <td>{{ $inputs['option_names'] ?: 'なし' }}</td>
             </tr>
 
             <tr>
@@ -59,7 +64,13 @@
             {{-- 戻る：入力値を保持 --}}
             <form action="{{ route('booking.index') }}" method="GET">
                 @foreach($inputs as $key => $value)
-                    <input type="hidden" name="{{ $key }}" value="{{ $value }}">
+                    @if (is_array($value))
+                        @foreach ($value as $v)
+                            <input type="hidden" name="{{ $key }}[]" value="{{ $v }}">
+                        @endforeach
+                    @else
+                        <input type="hidden" name="{{ $key }}" value="{{ $value }}">
+                    @endif
                 @endforeach
                 <button class="btn btn-outline-secondary">修正する</button>
             </form>
@@ -68,7 +79,13 @@
             <form action="{{ route('booking.send') }}" method="POST">
                 @csrf
                 @foreach($inputs as $key => $value)
-                    <input type="hidden" name="{{ $key }}" value="{{ $value }}">
+                    @if (is_array($value))
+                        @foreach ($value as $v)
+                            <input type="hidden" name="{{ $key }}[]" value="{{ $v }}">
+                        @endforeach
+                    @else
+                        <input type="hidden" name="{{ $key }}" value="{{ $value }}">
+                    @endif
                 @endforeach
                 <button class="btn btn-dark">予約を確定する</button>
             </form>

@@ -8,12 +8,17 @@
 
         <div class="mb-3">
             <label class="form-label fw-bold">タイトル</label>
-            <input type="text" name="title" class="form-control">
+            <input type="text" name="title" value="{{ old('title') }}" class="form-control">
         </div>
 
         <div class="mb-3">
             <label class="form-label fw-bold">内容</label>
-            <textarea name="body" class="form-control" rows="5"></textarea>
+            <textarea name="body" class="form-control" rows="5">{{ old('body') }}</textarea>
+        </div>
+
+        <div class="form-check mb-3">
+            <input type="checkbox" name="published" value="1" class="form-check-input" id="published" {{ old('published', true) ? 'checked' : '' }}>
+            <label class="form-check-label" for="published">公開する</label>
         </div>
 
         <button class="btn btn-dark">保存</button>

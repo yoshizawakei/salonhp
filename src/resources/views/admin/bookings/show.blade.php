@@ -34,6 +34,12 @@
                         <th class="bg-light">コース</th>
                         <td>{{ $booking->course }}</td>
                     </tr>
+                    @if ($booking->options)
+                        <tr>
+                            <th class="bg-light">追加オプション</th>
+                            <td>{{ $booking->options }}</td>
+                        </tr>
+                    @endif
                     <tr>
                         <th class="bg-light">施術時間</th>
                         <td>{{ $booking->duration }} 分</td>

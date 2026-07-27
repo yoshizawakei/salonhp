@@ -18,12 +18,20 @@
 <div class="auth-wrapper">
     <h2 class="text-center fw-bold mb-4">ログイン</h2>
 
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            @foreach ($errors->all() as $error)
+                <div>{{ $error }}</div>
+            @endforeach
+        </div>
+    @endif
+
     <form action="/login" method="POST">
         @csrf
 
         <div class="mb-4">
             <label class="form-label">メールアドレス</label>
-            <input type="email" class="form-control form-control-lg" name="email">
+            <input type="email" class="form-control form-control-lg" name="email" value="{{ old('email') }}">
         </div>
 
         <div class="mb-4">

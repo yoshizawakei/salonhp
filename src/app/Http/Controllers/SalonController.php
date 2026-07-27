@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\News;
 
 class SalonController extends Controller
@@ -16,24 +15,5 @@ class SalonController extends Controller
             ->get();
 
         return view('index', compact('news'));
-    }
-
-    public function register()
-    {
-        return view("auth.register");
-    }
-
-    public function login()
-    {
-        return view("auth.login");
-    }
-
-    public function logout(Request $request)
-    {
-        auth()->logout();
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-
-        return redirect("/");
     }
 }
