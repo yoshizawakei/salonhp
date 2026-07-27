@@ -19,7 +19,8 @@
 
     <!-- Services -->
     <section class="container py-5">
-        <h2 class="section-title text-center mb-5">Service Menu</h2>
+        <span class="section-eyebrow">Service</span>
+        <h2 class="section-title d-block text-center mb-5">Service Menu</h2>
 
         <div class="row g-4">
             <div class="col-md-4">
@@ -62,6 +63,7 @@
     <!-- NEWS -->
     <section class="py-5" style="background-color: var(--bg-soft);">
         <div class="container">
+            <span class="section-eyebrow">News</span>
             <h2 class="section-title d-block text-center mb-5">お知らせ</h2>
 
             @if($news->count())

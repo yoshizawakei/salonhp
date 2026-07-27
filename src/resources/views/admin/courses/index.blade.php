@@ -25,18 +25,18 @@
                     <td>{{ $c->name }}</td>
                     <td>
                         @if($c->is_option)
-                            <span class="badge bg-info text-dark">オプション</span>
+                            <span class="badge badge-brand-accent">オプション</span>
                         @else
-                            <span class="badge bg-dark">コース</span>
+                            <span class="badge badge-brand">コース</span>
                         @endif
                     </td>
                     <td>{{ $c->duration }} 分</td>
                     <td>¥{{ number_format($c->price) }}</td>
                     <td>
                         @if($c->is_active)
-                            <span class="badge bg-success">公開中</span>
+                            <span class="badge badge-brand">公開中</span>
                         @else
-                            <span class="badge bg-secondary">非公開</span>
+                            <span class="badge badge-brand-muted">非公開</span>
                         @endif
                     </td>
                     <td>

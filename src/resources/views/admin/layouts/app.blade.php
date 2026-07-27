@@ -30,7 +30,7 @@
         }
 
         .nav-title {
-            margin-left: 20px;
+            padding: 0 20px;
         }
     </style>
 

@@ -57,7 +57,7 @@
 <body>
 
     {{-- ヘッダー --}}
-    <header class="shadow-sm mb-4">
+    <header class="site-header shadow-sm mb-4">
         <nav class="navbar navbar-expand-lg container py-3">
 
             <a class="navbar-brand" href="/">
