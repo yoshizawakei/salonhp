@@ -5,6 +5,6 @@
         <h2 class="fw-bold mb-3">ご予約ありがとうございます</h2>
         <p>ご入力いただいたメールアドレスへ確認メールを送信しました。</p>
 
-        <a href="/" class="btn btn-dark rounded-pill mt-4">トップへ戻る</a>
+        <a href="/" class="btn btn-brand mt-4">トップへ戻る</a>
     </div>
 @endsection

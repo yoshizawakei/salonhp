@@ -9,7 +9,7 @@
     content: "";
     position: absolute;
     inset: 0;
-    background: rgba(0, 0, 0, 0.45);
+    background: linear-gradient(180deg, rgba(51, 72, 47, 0.55), rgba(51, 72, 47, 0.35));
 }
 
 .hero-section .container {
@@ -17,9 +17,11 @@
     z-index: 2;
 }
 
-.hero-logo {
-    width: 120px;
-    height: auto;
+.hero-eyebrow {
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    opacity: 0.9;
 }
 
 /* Services */
@@ -30,8 +32,9 @@
 
 .service-card {
     background: #fff;
-    border-radius: 12px;
+    border-radius: var(--radius-card);
     overflow: hidden;
+    box-shadow: var(--shadow-soft);
     transition: transform .3s;
 }
 
@@ -45,6 +48,14 @@
     object-fit: cover;
 }
 
+/* NEWS（トップページ） */
+.news-card {
+    background: #fff;
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-soft);
+    height: 100%;
+}
+
 /* CTA */
 .cta-section {
     padding: 80px 20px;
@@ -56,7 +67,7 @@
     content: "";
     position: absolute;
     inset: 0;
-    background: rgba(0, 0, 0, 0.5);
+    background: linear-gradient(180deg, rgba(51, 72, 47, 0.6), rgba(51, 72, 47, 0.45));
 }
 
 .cta-section h2,

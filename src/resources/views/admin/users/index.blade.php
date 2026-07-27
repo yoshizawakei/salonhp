@@ -22,7 +22,7 @@
                     <td>{{ $u->email }}</td>
                     <td>{{ $u->created_at->format('Y.m.d') }}</td>
                     <td>
-                        <a href="{{ route('admin.users.show', $u->id) }}" class="btn btn-outline-dark btn-sm">
+                        <a href="{{ route('admin.users.show', $u->id) }}" class="btn btn-brand-outline btn-sm">
                             詳細
                         </a>
                     </td>

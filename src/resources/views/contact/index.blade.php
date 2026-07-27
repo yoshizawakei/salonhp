@@ -5,7 +5,7 @@
 
         <h2 class="text-center fw-bold mb-4">お問い合わせ</h2>
 
-        <form action="{{ route('contact.confirm') }}" method="POST">
+        <form action="{{ route('contact.confirm') }}" method="POST" class="card-salon p-4">
             @csrf
 
             <div class="mb-3">
@@ -24,7 +24,7 @@
             </div>
 
             <div class="text-center">
-                <button class="btn btn-dark px-5">確認へ</button>
+                <button class="btn btn-brand px-5">確認へ</button>
             </div>
 
         </form>

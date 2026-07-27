@@ -5,7 +5,7 @@
 
         <h2 class="text-center fw-bold mb-4">予約内容確認</h2>
 
-        <table class="table table-bordered bg-white">
+        <table class="table table-bordered card-salon p-2">
 
             <tr>
                 <th class="bg-light">お名前</th>
@@ -72,7 +72,7 @@
                         <input type="hidden" name="{{ $key }}" value="{{ $value }}">
                     @endif
                 @endforeach
-                <button class="btn btn-outline-secondary">修正する</button>
+                <button class="btn btn-brand-outline">修正する</button>
             </form>
 
             {{-- 確定 --}}
@@ -87,7 +87,7 @@
                         <input type="hidden" name="{{ $key }}" value="{{ $value }}">
                     @endif
                 @endforeach
-                <button class="btn btn-dark">予約を確定する</button>
+                <button class="btn btn-brand">予約を確定する</button>
             </form>
 
         </div>

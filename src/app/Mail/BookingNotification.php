@@ -20,7 +20,7 @@ class BookingNotification extends Mailable
 
     public function build()
     {
-        return $this->subject('【Varjo】ご予約ありがとうございます')
+        return $this->subject('【' . config('salon.name') . '】ご予約ありがとうございます')
             ->view('emails.booking');
     }
 }

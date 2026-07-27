@@ -7,7 +7,7 @@
 
         {{-- 左：予約情報 --}}
         <div class="col-md-7">
-            <div class="bg-white p-4 rounded shadow-sm">
+            <div class="card-salon p-4">
 
                 <h5 class="fw-bold mb-3">
                     予約ID：#{{ $booking->id }}
@@ -52,11 +52,11 @@
                         <th class="bg-light">ステータス</th>
                         <td>
                             @if ($booking->status === 'pending')
-                                <span class="badge bg-warning text-dark">未対応</span>
+                                <span class="badge badge-status-pending">未対応</span>
                             @elseif ($booking->status === 'confirmed')
-                                <span class="badge bg-primary">確定</span>
+                                <span class="badge badge-status-confirmed">確定</span>
                             @elseif ($booking->status === 'done')
-                                <span class="badge bg-success">来店済み</span>
+                                <span class="badge badge-status-done">来店済み</span>
                             @else
                                 <span class="badge bg-secondary">{{ $booking->status }}</span>
                             @endif
@@ -76,7 +76,7 @@
 
         {{-- 右：ステータス変更／メモ --}}
         <div class="col-md-5">
-            <div class="bg-white p-4 rounded shadow-sm mb-4">
+            <div class="card-salon p-4 mb-4">
                 <h5 class="fw-bold mb-3">ステータス・メモ編集</h5>
 
                 <form action="{{ route('admin.bookings.update', $booking->id) }}" method="POST">
@@ -97,13 +97,13 @@
                         <textarea name="notes" rows="5" class="form-control">{{ old('notes', $booking->notes) }}</textarea>
                     </div>
 
-                    <button class="btn btn-dark w-100">更新する</button>
+                    <button class="btn btn-brand w-100">更新する</button>
                 </form>
             </div>
 
             {{-- カルテリンク（ユーザー連携している場合） --}}
             @if (!empty($booking->user_id) && $booking->user)
-                <div class="bg-white p-4 rounded shadow-sm">
+                <div class="card-salon p-4">
                     <h5 class="fw-bold mb-2">カルテ情報</h5>
                     <p class="mb-2">{{ $booking->user->name }} 様</p>
                     <a href="{{ route('admin.users.show', $booking->user_id) }}" class="btn btn-outline-secondary btn-sm">

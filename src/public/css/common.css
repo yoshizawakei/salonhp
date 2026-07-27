@@ -1,15 +1,21 @@
 /* ===========================
-   Varjo 共通スタイル（柔らかさ + 高級感バランス版）
+   共通デザインシステム（ナチュラル × 洗練）
+   公開ページ・管理画面で共通利用
    =========================== */
 
 :root {
-    --brand-main: #4a332f;
-    --brand-accent: #d9a86c;
-    --brand-bg-soft: #f7f3ef;
-    --text-main: #333333;
-    --text-muted: #777777;
-    --radius-card: 14px;
-    --shadow-soft: 0 8px 24px rgba(0, 0, 0, 0.08);
+    --bg: #f7f4ec;
+    --bg-soft: #efe9da;
+    --surface: #ffffff;
+    --brand-main: #4b6a4f;
+    --brand-main-dark: #33482f;
+    --brand-accent: #b98b56;
+    --text-main: #333228;
+    --text-muted: #7b7869;
+    --border-soft: #e3ddc9;
+    --radius-card: 16px;
+    --radius-pill: 999px;
+    --shadow-soft: 0 10px 28px rgba(51, 50, 40, 0.08);
 }
 
 /* -------------------------
@@ -17,23 +23,31 @@
 ------------------------- */
 
 body {
-    font-family: "Kosugi Maru", "Hiragino Kaku Gothic ProN", "Yu Gothic", "Meiryo", sans-serif;
+    font-family: "Noto Sans JP", "Hiragino Kaku Gothic ProN", "Yu Gothic", "Meiryo", sans-serif;
     color: var(--text-main);
-    background-color: #f5f5f5;
+    background-color: var(--bg);
     line-height: 1.85;
     letter-spacing: 0.01em;
     font-weight: 400;
 }
 
+a {
+    color: var(--brand-main);
+}
+
+a:hover {
+    color: var(--brand-main-dark);
+}
+
 /* -------------------------
-   見出し（柔らか × 上品）
+   見出し（明朝×ゴシックで上品に）
 ------------------------- */
 
 h1,
 h2,
 h3,
 .section-title {
-    font-family: "Noto Sans JP", sans-serif;
+    font-family: "Shippori Mincho", "Noto Sans JP", serif;
     font-weight: 700;
     letter-spacing: 0.04em;
     line-height: 1.5;
@@ -42,6 +56,27 @@ h3,
 .section-title {
     font-size: 2rem;
     margin-bottom: 12px;
+    position: relative;
+    display: inline-block;
+}
+
+.section-title::after {
+    content: "";
+    display: block;
+    width: 48px;
+    height: 2px;
+    background: var(--brand-accent);
+    margin: 14px auto 0;
+}
+
+.section-eyebrow {
+    display: block;
+    text-align: center;
+    color: var(--brand-accent);
+    letter-spacing: 0.18em;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    margin-bottom: 8px;
 }
 
 .section-subtitle {
@@ -52,36 +87,78 @@ h3,
 }
 
 /* -------------------------
+   ロゴ
+------------------------- */
+
+.brand-logo {
+    color: var(--brand-main);
+}
+
+.brand-logo__mark {
+    color: var(--brand-main);
+    flex-shrink: 0;
+}
+
+.brand-logo__text {
+    font-family: "Shippori Mincho", serif;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    font-size: 1.25rem;
+    color: var(--text-main);
+}
+
+/* -------------------------
    ボタン
 ------------------------- */
 
 .btn-brand {
     background-color: var(--brand-main);
-    color: #ffffff;
-    border-radius: 999px;
-    padding: 10px 28px;
-    border: none;
+    color: #ffffff !important;
+    border: 1px solid var(--brand-main);
+    border-radius: var(--radius-pill);
+    padding: 10px 30px;
     font-size: 1rem;
     letter-spacing: 0.05em;
-    transition: opacity .3s;
+    transition: background-color .25s, color .25s, border-color .25s;
 }
 
-.btn-brand:hover {
-    opacity: .85;
+.btn-brand:hover,
+.btn-brand:focus {
+    background-color: var(--brand-main-dark);
+    border-color: var(--brand-main-dark);
+    color: #ffffff !important;
 }
 
 .btn-brand-outline {
-    border-radius: 999px;
+    border-radius: var(--radius-pill);
     border: 1px solid var(--brand-main);
-    color: var(--brand-main);
+    color: var(--brand-main) !important;
     background: transparent;
-    padding: 10px 28px;
+    padding: 10px 30px;
     font-size: 1rem;
+    letter-spacing: 0.05em;
+    transition: background-color .25s, color .25s;
 }
 
-.btn-brand-outline:hover {
+.btn-brand-outline:hover,
+.btn-brand-outline:focus {
     background-color: var(--brand-main);
-    color: #ffffff;
+    color: #ffffff !important;
+}
+
+.btn-brand-light {
+    border-radius: var(--radius-pill);
+    border: 1px solid transparent;
+    background: #ffffff;
+    color: var(--brand-main-dark) !important;
+    padding: 10px 30px;
+    font-size: 1rem;
+    letter-spacing: 0.05em;
+    transition: opacity .25s;
+}
+
+.btn-brand-light:hover {
+    opacity: .88;
 }
 
 /* -------------------------
@@ -91,7 +168,7 @@ h3,
 .card-salon {
     border-radius: var(--radius-card);
     box-shadow: var(--shadow-soft);
-    background-color: #ffffff;
+    background-color: var(--surface);
     border: none;
 }
 
@@ -101,7 +178,7 @@ h3,
 
 .form-label {
     font-weight: 600;
-    color: #444444;
+    color: #4a4939;
     font-size: 0.95rem;
     font-family: "Noto Sans JP", sans-serif;
 }
@@ -110,14 +187,39 @@ h3,
 .form-select,
 textarea.form-control {
     border-radius: 10px;
-    border-color: #dddddd;
+    border-color: var(--border-soft);
+    background-color: #fffdf9;
 }
 
 .form-control:focus,
 .form-select:focus,
 textarea.form-control:focus {
     border-color: var(--brand-accent);
-    box-shadow: 0 0 0 0.18rem rgba(217, 168, 108, 0.25);
+    box-shadow: 0 0 0 0.18rem rgba(185, 139, 86, 0.22);
+}
+
+.form-check-input:checked {
+    background-color: var(--brand-main);
+    border-color: var(--brand-main);
+}
+
+/* -------------------------
+   バッジ（予約ステータス等）
+------------------------- */
+
+.badge-status-pending {
+    background-color: #ddd2b6;
+    color: #5a4a1f;
+}
+
+.badge-status-confirmed {
+    background-color: #cddccb;
+    color: var(--brand-main-dark);
+}
+
+.badge-status-done {
+    background-color: var(--brand-main);
+    color: #ffffff;
 }
 
 /* -------------------------
@@ -127,33 +229,42 @@ textarea.form-control:focus {
 .navbar {
     font-size: 0.95rem;
     font-family: "Noto Sans JP", sans-serif;
+    background-color: var(--surface) !important;
 }
 
-.navbar-brand {
-    letter-spacing: 0.05em;
-    font-size: 1.25rem;
-    font-weight: 600;
+.navbar .nav-link {
+    color: var(--text-main);
 }
 
-/* -------------------------
-   ロゴ画像
-------------------------- */
-
-.logo-image {
-    height: 34px;
-    width: 34px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin-right: 8px;
+.navbar .nav-link:hover {
+    color: var(--brand-main);
 }
 
 /* -------------------------
    フッター
 ------------------------- */
 
-footer {
-    font-size: 0.8rem;
+footer.site-footer {
+    background-color: var(--brand-main-dark);
+    color: #eee7d8;
+    font-size: 0.85rem;
     font-family: "Noto Sans JP", sans-serif;
+}
+
+footer.site-footer .brand-logo,
+footer.site-footer .brand-logo__mark,
+footer.site-footer .brand-logo__text {
+    color: #eee7d8;
+}
+
+/* -------------------------
+   認証カード（ログイン/会員登録）
+------------------------- */
+
+.auth-card {
+    max-width: 450px;
+    margin: 60px auto;
+    padding: 40px;
 }
 
 /* -------------------------
@@ -162,21 +273,43 @@ footer {
 
 .admin-sidebar {
     min-height: 100vh;
-    background: #222831;
-    color: #eeeeee;
+    background: var(--brand-main-dark);
+    color: #f1ece0;
 }
 
-.admin-sidebar a {
-    color: #eeeeee;
+.admin-sidebar a,
+.admin-sidebar .nav-link {
+    color: #f1ece0;
     text-decoration: none;
     padding: 10px 14px;
     font-size: 0.9rem;
     display: block;
+    border-radius: 8px;
 }
 
-.admin-sidebar a:hover {
-    background-color: #393e46;
+.admin-sidebar a:hover,
+.admin-sidebar .nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.12);
     color: #ffffff;
+}
+
+.admin-sidebar .nav-link.active {
+    background-color: var(--brand-accent);
+    color: #ffffff;
+}
+
+.admin-stat-card {
+    border-left: 4px solid var(--brand-accent);
+}
+
+.card-header-brand {
+    background-color: var(--brand-main);
+}
+
+.admin-sidebar .brand-logo,
+.admin-sidebar .brand-logo__mark,
+.admin-sidebar .brand-logo__text {
+    color: #f1ece0;
 }
 
 /* -------------------------

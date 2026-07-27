@@ -3,7 +3,7 @@
 @section('content')
     <h2 class="fw-bold mb-4">お知らせ一覧</h2>
 
-    <a href="{{ route('admin.news.create') }}" class="btn btn-dark mb-3">新規投稿</a>
+    <a href="{{ route('admin.news.create') }}" class="btn btn-brand mb-3">新規投稿</a>
 
     <table class="table table-striped bg-white shadow-sm rounded">
         <thead>
@@ -20,7 +20,7 @@
                     <td>{{ $n->title }}</td>
                     <td>{{ $n->created_at->format('Y.m.d') }}</td>
                     <td>
-                        <a href="{{ route('admin.news.edit', $n->id) }}" class="btn btn-outline-dark btn-sm">編集</a>
+                        <a href="{{ route('admin.news.edit', $n->id) }}" class="btn btn-brand-outline btn-sm">編集</a>
                     </td>
                 </tr>
             @endforeach

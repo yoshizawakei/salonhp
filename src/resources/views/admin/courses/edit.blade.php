@@ -3,7 +3,7 @@
 @section('content')
     <h2 class="fw-bold mb-4">コースを編集</h2>
 
-    <form action="{{ route('admin.courses.update', $course->id) }}" method="POST" class="bg-white p-4 rounded shadow-sm">
+    <form action="{{ route('admin.courses.update', $course->id) }}" method="POST" class="card-salon p-4">
         @csrf
         @method('PUT')
 
@@ -53,7 +53,7 @@
             </select>
         </div>
 
-        <button class="btn btn-dark w-100">更新する</button>
-        <a href="{{ route('admin.courses.index') }}" class="btn btn-outline-dark w-100 mt-2">戻る</a>
+        <button class="btn btn-brand w-100">更新する</button>
+        <a href="{{ route('admin.courses.index') }}" class="btn btn-brand-outline w-100 mt-2">戻る</a>
     </form>
 @endsection

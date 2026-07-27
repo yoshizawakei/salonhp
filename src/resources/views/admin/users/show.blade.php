@@ -7,7 +7,7 @@
 
         {{-- 左：顧客基本情報 --}}
         <div class="col-md-5">
-            <div class="bg-white p-4 rounded shadow-sm">
+            <div class="card-salon p-4">
                 <h4 class="fw-bold mb-3">{{ $user->name }} 様</h4>
 
                 <table class="table table-bordered">
@@ -29,7 +29,7 @@
                     </tr>
                 </table>
 
-                <a href="{{ route('admin.users.edit', $user->id) }}" class="btn btn-dark w-100 mt-3">
+                <a href="{{ route('admin.users.edit', $user->id) }}" class="btn btn-brand w-100 mt-3">
                     顧客情報を編集
                 </a>
             </div>
@@ -37,7 +37,7 @@
 
         {{-- 右：来店履歴 --}}
         <div class="col-md-7">
-            <div class="bg-white p-4 rounded shadow-sm">
+            <div class="card-salon p-4">
                 <h4 class="fw-bold mb-3">来店履歴</h4>
 
                 @if($bookings->count() == 0)
@@ -62,11 +62,11 @@
                                     <td>¥{{ number_format($b->price) }}</td>
                                     <td>
                                         @if($b->status === 'pending')
-                                            <span class="badge bg-warning text-dark">未対応</span>
+                                            <span class="badge badge-status-pending">未対応</span>
                                         @elseif($b->status === 'confirmed')
-                                            <span class="badge bg-primary">確定</span>
+                                            <span class="badge badge-status-confirmed">確定</span>
                                         @else
-                                            <span class="badge bg-success">来店済み</span>
+                                            <span class="badge badge-status-done">来店済み</span>
                                         @endif
                                     </td>
                                 </tr>

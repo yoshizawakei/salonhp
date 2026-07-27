@@ -31,8 +31,8 @@
                 <input type="number" name="price" class="form-control" value="{{ $booking->price }}">
             </div>
 
-            <button class="btn btn-dark px-4">更新する</button>
-            <a href="{{ route('admin.bookings.index') }}" class="btn btn-outline-dark ms-2">戻る</a>
+            <button class="btn btn-brand px-4">更新する</button>
+            <a href="{{ route('admin.bookings.index') }}" class="btn btn-brand-outline ms-2">戻る</a>
         </form>
 
     </div>

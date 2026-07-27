@@ -19,7 +19,7 @@ class ContactNotification extends Mailable
 
     public function build()
     {
-        return $this->subject('【Varjo】お問い合わせありがとうございます')
+        return $this->subject('【' . config('salon.name') . '】お問い合わせありがとうございます')
             ->view('emails.contact');
     }
 }

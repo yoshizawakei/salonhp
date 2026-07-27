@@ -3,7 +3,7 @@
 @section('content')
     <h2 class="fw-bold mb-4">お知らせを投稿</h2>
 
-    <form action="{{ route('admin.news.store') }}" method="POST" class="bg-white p-4 shadow-sm rounded">
+    <form action="{{ route('admin.news.store') }}" method="POST" class="card-salon p-4">
         @csrf
 
         <div class="mb-3">
@@ -21,6 +21,6 @@
             <label class="form-check-label" for="published">公開する</label>
         </div>
 
-        <button class="btn btn-dark">保存</button>
+        <button class="btn btn-brand">保存</button>
     </form>
 @endsection

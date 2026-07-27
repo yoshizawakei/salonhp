@@ -3,7 +3,7 @@
 @section('content')
     <h2 class="fw-bold mb-4">顧客情報を編集</h2>
 
-    <form action="{{ route('admin.users.update', $user->id) }}" method="POST" class="bg-white p-4 rounded shadow-sm">
+    <form action="{{ route('admin.users.update', $user->id) }}" method="POST" class="card-salon p-4">
         @csrf
         @method('PUT')
 
@@ -22,7 +22,7 @@
             <textarea name="memo" rows="5" class="form-control">{{ old('memo', $user->memo) }}</textarea>
         </div>
 
-        <button class="btn btn-dark">更新する</button>
+        <button class="btn btn-brand">更新する</button>
     </form>
 
 @endsection

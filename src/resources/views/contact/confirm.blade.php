@@ -5,7 +5,7 @@
 
         <h2 class="text-center fw-bold mb-4">確認</h2>
 
-        <table class="table table-bordered bg-white">
+        <table class="table table-bordered card-salon p-2">
             <tr>
                 <th class="bg-light">お名前</th>
                 <td>{{ $inputs['name'] }}</td>
@@ -27,7 +27,7 @@
                 @foreach($inputs as $key => $value)
                     <input type="hidden" name="{{ $key }}" value="{{ $value }}">
                 @endforeach
-                <button class="btn btn-outline-secondary">修正する</button>
+                <button class="btn btn-brand-outline">修正する</button>
             </form>
 
             {{-- 送信 --}}
@@ -36,7 +36,7 @@
                 @foreach($inputs as $key => $value)
                     <input type="hidden" name="{{ $key }}" value="{{ $value }}">
                 @endforeach
-                <button class="btn btn-dark">送信する</button>
+                <button class="btn btn-brand">送信する</button>
             </form>
 
         </div>

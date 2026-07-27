@@ -1,9 +1,5 @@
 @extends("layouts.app")
 
-@section("css")
-    <link rel="stylesheet" href="{{ asset('css/booking.css') }}">
-@endsection
-
 @section("content")
     <div class="container py-5">
         <h2 class="text-center mb-4 fw-bold">ご予約フォーム</h2>
@@ -17,7 +13,7 @@
                     </div>
                 @endif
 
-                <form action="{{ route('booking.confirm') }}" method="POST" class="card shadow-sm p-4 bg-white rounded">
+                <form action="{{ route('booking.confirm') }}" method="POST" class="card-salon p-4">
                     @csrf
 
                     {{-- お名前 --}}
@@ -120,7 +116,7 @@
                         <textarea name="notes" rows="4" class="form-control">{{ old('notes', request('notes')) }}</textarea>
                     </div>
 
-                    <button type="submit" class="btn btn-dark w-100 rounded-pill mt-3 py-2 fw-bold">
+                    <button type="submit" class="btn btn-brand w-100 mt-3 py-2 fw-bold">
                         内容確認へ進む
                     </button>
                 </form>

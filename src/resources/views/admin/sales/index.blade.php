@@ -4,7 +4,7 @@
     <h2 class="fw-bold mb-4">売上管理</h2>
 
     <div class="mb-4">
-        <a href="{{ route('admin.sales.export') }}" class="btn btn-dark">売上データをExcelでダウンロード</a>
+        <a href="{{ route('admin.sales.export') }}" class="btn btn-brand">売上データをExcelでダウンロード</a>
     </div>
 
     <div class="row">
@@ -12,7 +12,7 @@
         {{-- 月別売上 --}}
         <div class="col-md-6 mb-4">
             <div class="card shadow-sm">
-                <div class="card-header bg-dark text-white fw-bold">
+                <div class="card-header card-header-brand text-white fw-bold">
                     月別売上
                 </div>
                 <div class="card-body">
@@ -24,7 +24,7 @@
         {{-- 月別来店数 --}}
         <div class="col-md-6 mb-4">
             <div class="card shadow-sm">
-                <div class="card-header bg-dark text-white fw-bold">
+                <div class="card-header card-header-brand text-white fw-bold">
                     月別来店数
                 </div>
                 <div class="card-body">
@@ -36,7 +36,7 @@
         {{-- コース別売上 --}}
         <div class="col-md-12 mb-4">
             <div class="card shadow-sm">
-                <div class="card-header bg-dark text-white fw-bold">
+                <div class="card-header card-header-brand text-white fw-bold">
                     コース別売上比率
                 </div>
                 <div class="card-body">

@@ -7,5 +7,5 @@
 </p>
 
 <p>--------<br>
-    Private Salon Varjo<br>
+    {{ config('salon.name') }}<br>
 </p>

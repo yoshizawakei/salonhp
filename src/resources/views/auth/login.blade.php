@@ -1,21 +1,8 @@
 @extends("layouts.app")
 
-@section("css")
-<style>
-    .auth-wrapper {
-        max-width: 450px;
-        margin: 60px auto;
-        padding: 40px;
-        background: #fff;
-        border-radius: 14px;
-        box-shadow: 0 8px 25px rgba(0,0,0,0.08);
-    }
-</style>
-@endsection
-
 @section("content")
 
-<div class="auth-wrapper">
+<div class="auth-card card-salon">
     <h2 class="text-center fw-bold mb-4">ログイン</h2>
 
     @if ($errors->any())
@@ -39,11 +26,11 @@
             <input type="password" class="form-control form-control-lg" name="password">
         </div>
 
-        <button class="btn btn-dark btn-lg w-100">ログイン</button>
+        <button class="btn btn-brand btn-lg w-100">ログイン</button>
     </form>
 
     <div class="text-center mt-4">
-        <a href="/register" class="text-dark">新規登録はこちら</a>
+        <a href="/register">新規登録はこちら</a>
     </div>
 </div>
 

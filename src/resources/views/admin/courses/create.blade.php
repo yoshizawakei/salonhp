@@ -3,7 +3,7 @@
 @section('content')
     <h2 class="fw-bold mb-4">新規コース追加</h2>
 
-    <form action="{{ route('admin.courses.store') }}" method="POST" class="bg-white p-4 rounded shadow-sm">
+    <form action="{{ route('admin.courses.store') }}" method="POST" class="card-salon p-4">
         @csrf
 
         <div class="mb-3">
@@ -47,6 +47,6 @@
             </select>
         </div>
 
-        <button class="btn btn-dark w-100">登録する</button>
+        <button class="btn btn-brand w-100">登録する</button>
     </form>
 @endsection

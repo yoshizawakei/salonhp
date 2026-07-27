@@ -1,6 +1,6 @@
 <p>{{ $booking->name }} 様</p>
 
-<p>この度は Private Salon Varjo にご予約いただき誠にありがとうございます。</p>
+<p>この度は {{ config('salon.name') }} にご予約いただき誠にありがとうございます。</p>
 
 <p>
 ■ 予約内容<br>
@@ -13,5 +13,5 @@
 <p>担当者より改めてご連絡いたします。</p>
 
 <p>--------<br>
-Private Salon Varjo<br>
+{{ config('salon.name') }}<br>
 </p>

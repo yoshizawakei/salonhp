@@ -19,8 +19,8 @@
             <input type="text" name="keyword" value="{{ request('keyword') }}" placeholder="お名前で検索" class="form-control form-control-sm">
         </div>
         <div class="col-auto">
-            <button class="btn btn-dark btn-sm">検索</button>
-            <a href="{{ route('admin.bookings.index') }}" class="btn btn-outline-dark btn-sm">クリア</a>
+            <button class="btn btn-brand btn-sm">検索</button>
+            <a href="{{ route('admin.bookings.index') }}" class="btn btn-brand-outline btn-sm">クリア</a>
         </div>
     </form>
 
@@ -63,7 +63,7 @@
                     </td>
 
                     <td>
-                        <a href="{{ route('admin.bookings.show', $b->id) }}" class="btn btn-outline-dark btn-sm">
+                        <a href="{{ route('admin.bookings.show', $b->id) }}" class="btn btn-brand-outline btn-sm">
                             詳細
                         </a>
                     </td>

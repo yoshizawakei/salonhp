@@ -7,11 +7,11 @@
 @section("content")
     <div class="hero-section d-flex align-items-center">
         <div class="container text-center text-white">
-            <img src="{{ asset('img/IMG_4506.PNG') }}" class="hero-logo" alt="Varjo ロゴ">
-            <h1 class="display-4 fw-bold mt-4">Private Salon Varjo</h1>
-            <p class="lead">あなただけの隠れ家サロンで、心身を美しく解き放つひととき。</p>
+            <span class="hero-eyebrow">Private Salon</span>
+            <h1 class="display-4 fw-bold mt-2">{{ config('salon.name') }}</h1>
+            <p class="lead">{{ config('salon.tagline') }}</p>
 
-            <a href="/booking" class="btn btn-light btn-lg mt-3 shadow-sm rounded-pill">
+            <a href="/booking" class="btn btn-brand-light btn-lg mt-3 shadow-sm">
                 予約する
             </a>
         </div>
@@ -29,7 +29,7 @@
                     <div class="p-4">
                         <h3 class="fw-bold">ボディトリートメント</h3>
                         <p>植物由来のアロマオイルを贅沢に使用し、深いリラクゼーションへ導きます。</p>
-                        <a href="/booking" class="btn btn-outline-dark rounded-pill">予約する</a>
+                        <a href="/booking" class="btn btn-brand-outline">予約する</a>
                     </div>
                 </div>
             </div>
@@ -41,7 +41,7 @@
                     <div class="p-4">
                         <h3 class="fw-bold">フェイシャルエステ</h3>
                         <p>お肌の悩みに合わせたケアで、透明感あふれる素肌へ。</p>
-                        <a href="/booking" class="btn btn-outline-dark rounded-pill">予約する</a>
+                        <a href="/booking" class="btn btn-brand-outline">予約する</a>
                     </div>
                 </div>
             </div>
@@ -52,7 +52,7 @@
                     <div class="p-4">
                         <h3 class="fw-bold">ドライヘッドスパ</h3>
                         <p>頭皮・目元の疲れを集中ケア。癒やしと快眠へ導きます。</p>
-                        <a href="/booking" class="btn btn-outline-dark rounded-pill">予約する</a>
+                        <a href="/booking" class="btn btn-brand-outline">予約する</a>
                     </div>
                 </div>
             </div>
@@ -60,20 +60,22 @@
     </section>
 
     <!-- NEWS -->
-    <section class="bg-light py-5">
+    <section class="py-5" style="background-color: var(--bg-soft);">
         <div class="container">
-            <h2 class="section-title text-center mb-4">お知らせ</h2>
+            <h2 class="section-title d-block text-center mb-5">お知らせ</h2>
 
             @if($news->count())
-                <ul class="list-group list-group-flush">
+                <div class="row g-4">
                     @foreach($news as $item)
-                        <li class="list-group-item py-3">
-                            <strong>{{ $item->title }}</strong>
-                            <p class="mb-1">{{ $item->body }}</p>
-                            <small class="text-muted">{{ $item->created_at->format('Y.m.d') }}</small>
-                        </li>
+                        <div class="col-md-4">
+                            <div class="news-card p-4">
+                                <small class="text-muted">{{ $item->created_at->format('Y.m.d') }}</small>
+                                <h3 class="h6 fw-bold mt-2">{{ $item->title }}</h3>
+                                <p class="mb-0 text-muted">{{ \Illuminate\Support\Str::limit($item->body, 60) }}</p>
+                            </div>
+                        </div>
                     @endforeach
-                </ul>
+                </div>
             @else
                 <p class="text-center text-muted">現在お知らせはありません。</p>
             @endif
@@ -82,9 +84,9 @@
 
     <!-- CTA -->
     <section class="cta-section text-center text-white">
-        <h2 class="fw-bold">癒しのひとときを、Varjoで。</h2>
+        <h2 class="fw-bold text-white">心と体を、やさしくときほぐす時間を。</h2>
         <p class="mt-2">初回限定メニューもご用意しております。</p>
-        <a href="/booking" class="btn btn-light btn-lg mt-3 rounded-pill">予約はこちら</a>
+        <a href="/booking" class="btn btn-brand-light btn-lg mt-3">予約はこちら</a>
     </section>
 
 @endsection

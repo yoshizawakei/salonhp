@@ -3,7 +3,7 @@
 @section('content')
     <h2 class="fw-bold mb-4">コース管理</h2>
 
-    <a href="{{ route('admin.courses.create') }}" class="btn btn-dark mb-3">新規コース追加</a>
+    <a href="{{ route('admin.courses.create') }}" class="btn btn-brand mb-3">新規コース追加</a>
 
     <table class="table table-striped table-bordered bg-white shadow-sm">
         <thead class="table-dark">
@@ -40,7 +40,7 @@
                         @endif
                     </td>
                     <td>
-                        <a href="{{ route('admin.courses.edit', $c->id) }}" class="btn btn-outline-dark btn-sm">編集</a>
+                        <a href="{{ route('admin.courses.edit', $c->id) }}" class="btn btn-brand-outline btn-sm">編集</a>
                         <form action="{{ route('admin.courses.destroy', $c->id) }}" method="POST" style="display:inline;">
                             @csrf @method('DELETE')
                             <button class="btn btn-danger btn-sm">削除</button>

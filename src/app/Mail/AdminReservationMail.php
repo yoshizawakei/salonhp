@@ -20,7 +20,7 @@ class AdminReservationMail extends Mailable
 
     public function build()
     {
-        return $this->subject('【Varjo：新規予約】予約が入りました')
+        return $this->subject('【' . config('salon.name') . '：新規予約】予約が入りました')
             ->markdown('emails.admin_reservation');
     }
 }

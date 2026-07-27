@@ -3,7 +3,7 @@
 @section('content')
     <h2 class="fw-bold mb-4">お知らせを編集</h2>
 
-    <form action="{{ route('admin.news.update', $news->id) }}" method="POST" class="bg-white p-4 shadow-sm rounded">
+    <form action="{{ route('admin.news.update', $news->id) }}" method="POST" class="card-salon p-4">
         @csrf
         @method('PUT')
 
@@ -22,7 +22,7 @@
             <label class="form-check-label" for="published">公開する</label>
         </div>
 
-        <button class="btn btn-dark">更新する</button>
-        <a href="{{ route('admin.news.index') }}" class="btn btn-outline-dark ms-2">戻る</a>
+        <button class="btn btn-brand">更新する</button>
+        <a href="{{ route('admin.news.index') }}" class="btn btn-brand-outline ms-2">戻る</a>
     </form>
 @endsection
